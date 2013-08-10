@@ -437,7 +437,7 @@ public class ClickingButtons implements PacketType
 					c.playerTitle = 5;
 					c.getPA().requestUpdates();
 					c.getPA().closeAllWindows();
-					c.sendMessage( "@red@You have chosen INSANE your xp rate's is 2x runescape" );
+					c.sendMessage( "@red@You have chosen MASTER your xp rate's is 2x runescape" );
 					c.sendMessage( "@red@You have chosen MASTER your xp rate's is 2x runescape" );
 					c.sendMessage( "@red@You have chosen MASTER your xp rate's is 2x runescape" );
 					c.sendMessage( "@red@You have chosen MASTER your xp rate's is 2x runescape" );
