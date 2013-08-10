@@ -1,36 +1,43 @@
+
 package server.org.world.clip;
 
-public class CachedObject {
+public class CachedObject
+{
 
-	private int objectId;
-	private int objectType;
+	private final int objectId;
+	private final int objectType;
 	private int objectOrientation;
 
-	public CachedObject(int objectId, int objectType, int objectOrientation)
+
+	public CachedObject( int objectId, int objectType, int objectOrientation )
 	{
 		this.objectId = objectId;
 		this.objectType = objectType;
 		this.objectOrientation = objectOrientation;
 	}
-	
+
+
 	public int getId()
 	{
 		return objectId;
 	}
-	
+
+
 	public int getType()
 	{
 		return objectType;
 	}
-	
+
+
 	public int getOrientation()
 	{
 		return objectOrientation;
 	}
-	
-	public void changeOrientation(int o)
+
+
+	public void changeOrientation( int o )
 	{
 		objectOrientation = o;
 	}
-	
+
 }

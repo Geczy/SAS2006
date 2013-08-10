@@ -1,14 +1,15 @@
-package server.org.engine.character.packets;
 
+package server.org.engine.character.packets;
 
 import server.org.engine.character.Client;
 
+public class IdleLogout implements PacketType
+{
 
-public class IdleLogout implements PacketType {
-	
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
-		//if (!c.playerName.equalsIgnoreCase("Sanity"))
-			//c.logout();
+	public void processPacket( Client c, int packetType, int packetSize )
+	{
+		// if (!c.playerName.equalsIgnoreCase("Sanity"))
+		// c.logout();
 	}
 }

@@ -1,59 +1,82 @@
+
 package server.org.world.tile;
 
 public class Tiles
 {
-	public Tiles(int x, int y){
-		setX(x);
-		setY(y);
+
+	public Tiles( int x, int y )
+	{
+		setX( x );
+		setY( y );
 	}
 
-	public Tiles(int x, int y, int h){
-		setX(x);
-		setY(y);
-		setH(h);
+
+	public Tiles( int x, int y, int h )
+	{
+		setX( x );
+		setY( y );
+		setH( h );
 	}
-	
-	public Tiles(int x, int y, int h, int f){
-		setX(x);
-		setY(y);
-		setH(h);
-		setF(f);
+
+
+	public Tiles( int x, int y, int h, int f )
+	{
+		setX( x );
+		setY( y );
+		setH( h );
+		setF( f );
 	}
-	
-	public void setX(int x){
+
+
+	public void setX( int x )
+	{
 		this.x = x;
 	}
-	
-	public void setY(int y){
+
+
+	public void setY( int y )
+	{
 		this.y = y;
 	}
-	
-	public void setH(int h){
+
+
+	public void setH( int h )
+	{
 		this.h = h;
 	}
-	
-	public void setF(int f){
+
+
+	public void setF( int f )
+	{
 		this.f = f;
 	}
-	
-	public int getX() {
+
+
+	public int getX()
+	{
 		return x;
 	}
-	
-	public int getY() {
+
+
+	public int getY()
+	{
 		return y;
 	}
-	
-	public int getH() {
+
+
+	public int getH()
+	{
 		return h;
 	}
-	
-	public int getF() {
+
+
+	public int getF()
+	{
 		return f;
 	}
-	
-	private int x = -1;
-	private int y = -1;
-	private int h = -1;
-	private int f = -1;
+
+	private int x = - 1;
+	private int y = - 1;
+	private int h = - 1;
+	private int f = - 1;
 }

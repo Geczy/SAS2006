@@ -1,18 +1,19 @@
+
 package server.org.engine.character.packets.clicking;
 
 import server.org.engine.character.Client;
 import server.org.engine.character.packets.PacketType;
 
-
 /**
- * Clicking in game 
+ * Clicking in game
  **/
-public class ClickingInGame implements PacketType {
+public class ClickingInGame implements PacketType
+{
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
-		
-	
+	public void processPacket( Client c, int packetType, int packetSize )
+	{
+
 	}
-		
+
 }

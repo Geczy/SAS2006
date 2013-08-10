@@ -1,9 +1,9 @@
+
 package server.org.engine.item;
 
+public class GroundItem
+{
 
-
-public class GroundItem {
-	
 	public int itemId;
 	public int itemX;
 	public int itemY;
@@ -13,56 +13,66 @@ public class GroundItem {
 	public int removeTicks;
 	public String ownerName;
 	public int heightLevel;
-	
 
-	public GroundItem(int id, int x, int y, int amount, int controller, int hideTicks, String name) {
-		this.itemId = id;
-		this.itemX = x;
-		this.itemY = y;
-		this.itemAmount = amount;
-		this.itemController = controller;
+
+	public GroundItem( int id, int x, int y, int amount, int controller, int hideTicks, String name )
+	{
+		itemId = id;
+		itemX = x;
+		itemY = y;
+		itemAmount = amount;
+		itemController = controller;
 		this.hideTicks = hideTicks;
-		this.ownerName = name;
+		ownerName = name;
 	}
-	
-	public GroundItem(int id, int x, int y, int height, int amount, int controller, int hideTicks, String name) {
-		this.itemId = id;
-		this.itemX = x;
-		this.itemY = y;
-        this.heightLevel = height;
-		this.itemAmount = amount;
-		this.itemController = controller;
+
+
+	public GroundItem( int id, int x, int y, int height, int amount, int controller, int hideTicks, String name )
+	{
+		itemId = id;
+		itemX = x;
+		itemY = y;
+		heightLevel = height;
+		itemAmount = amount;
+		itemController = controller;
 		this.hideTicks = hideTicks;
-		this.ownerName = name;
+		ownerName = name;
 	}
 
-	public int getItemId() {
-		return this.itemId;
-	}
-	
-	public int getItemX(){
-		return this.itemX;
-	}
-	
-	public int getItemY(){
-		return this.itemY;
-	}
-	
-	public int getItemAmount(){
-		return this.itemAmount;
-	}
-	
-	public int getItemController(){
-		return this.itemController;
-	}
-	
-	public String getName() {
-		return this.ownerName;
-	}
-	
-	
 
-	
+	public int getItemId()
+	{
+		return itemId;
+	}
 
-	
+
+	public int getItemX()
+	{
+		return itemX;
+	}
+
+
+	public int getItemY()
+	{
+		return itemY;
+	}
+
+
+	public int getItemAmount()
+	{
+		return itemAmount;
+	}
+
+
+	public int getItemController()
+	{
+		return itemController;
+	}
+
+
+	public String getName()
+	{
+		return ownerName;
+	}
+
 }

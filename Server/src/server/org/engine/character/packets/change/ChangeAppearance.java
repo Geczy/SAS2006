@@ -1,3 +1,4 @@
+
 package server.org.engine.character.packets.change;
 
 import server.org.engine.character.Client;
@@ -6,10 +7,12 @@ import server.org.engine.character.packets.PacketType;
 /**
  * Change appearance
  **/
-public class ChangeAppearance implements PacketType {
+public class ChangeAppearance implements PacketType
+{
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket( Client c, int packetType, int packetSize )
+	{
 		int gender = c.getInStream().readSignedByte();
 		int head = c.getInStream().readSignedByte();
 		int jaw = c.getInStream().readSignedByte();
@@ -23,8 +26,8 @@ public class ChangeAppearance implements PacketType {
 		int legsColour = c.getInStream().readSignedByte();
 		int feetColour = c.getInStream().readSignedByte();
 		int skinColour = c.getInStream().readSignedByte();
-		
-		if (c.canChangeAppearance) { 
+
+		if( c.canChangeAppearance ) {
 			c.playerAppearance[0] = gender; // gender
 			c.playerAppearance[1] = head; // head
 			c.playerAppearance[2] = torso;// Torso
@@ -42,6 +45,6 @@ public class ChangeAppearance implements PacketType {
 			c.getPA().removeAllWindows();
 			c.getPA().requestUpdates();
 			c.canChangeAppearance = false;
-		}	
-	}	
+		}
+	}
 }

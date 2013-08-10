@@ -1,120 +1,136 @@
+
 package server.org.engine.character.combat.magic;
 
 import server.org.engine.character.Client;
 
-public class GetMagic {
+public class GetMagic
+{
 
-	public static int getFreezeTime(Client c) {
-		switch(c.MAGIC_SPELLS[c.oldSpellId][0]) {
+	public static int getFreezeTime( Client c )
+	{
+		switch( c.MAGIC_SPELLS[c.oldSpellId][0] ) {
 			case 1572:
 			case 12861: // ice rush
-			return 10;
-						
+				return 10;
+
 			case 1582:
 			case 12881: // ice burst
-			return 17;
-			
+				return 17;
+
 			case 1592:
 			case 12871: // ice blitz
-			return 25;
-			
+				return 25;
+
 			case 12891: // ice barrage
-			return 33;
-			
+				return 33;
+
 			default:
-			return 0;
+				return 0;
 		}
 	}
-	
-	public static int getStartHeight(Client c) {
-		switch(c.MAGIC_SPELLS[c.spellId][0]) {
+
+
+	public static int getStartHeight( Client c )
+	{
+		switch( c.MAGIC_SPELLS[c.spellId][0] ) {
 			case 1562: // stun
-			return 25;
-			
+				return 25;
+
 			case 12939:// smoke rush
-			return 35;
-			
+				return 35;
+
 			case 12987: // shadow rush
-			return 38;
-			
+				return 38;
+
 			case 12861: // ice rush
-			return 15;
-			
-			case 12951:  // smoke blitz
-			return 38;
-			
+				return 15;
+
+			case 12951: // smoke blitz
+				return 38;
+
 			case 12999: // shadow blitz
-			return 25;
-			
+				return 25;
+
 			case 12911: // blood blitz
-			return 25;
-			
+				return 25;
+
 			default:
-			return 43;
+				return 43;
 		}
 	}
-	
-	public static int getEndHeight(Client c) {
-		switch(c.MAGIC_SPELLS[c.spellId][0]) {
+
+
+	public static int getEndHeight( Client c )
+	{
+		switch( c.MAGIC_SPELLS[c.spellId][0] ) {
 			case 1562: // stun
-			return 10;
-			
+				return 10;
+
 			case 12939: // smoke rush
-			return 20;
-			
+				return 20;
+
 			case 12987: // shadow rush
-			return 28;
-			
+				return 28;
+
 			case 12861: // ice rush
-			return 10;
-			
-			case 12951:  // smoke blitz
-			return 28;
-			
+				return 10;
+
+			case 12951: // smoke blitz
+				return 28;
+
 			case 12999: // shadow blitz
-			return 15;
-			
+				return 15;
+
 			case 12911: // blood blitz
-			return 10;
-				
+				return 10;
+
 			default:
-			return 31;
+				return 31;
 		}
 	}
-	public static int getStartDelay(Client c) {
-		switch(c.MAGIC_SPELLS[c.spellId][0]) {
+
+
+	public static int getStartDelay( Client c )
+	{
+		switch( c.MAGIC_SPELLS[c.spellId][0] ) {
 			case 1539:
-			return 60;
-			
+				return 60;
+
 			default:
-			return 53;
+				return 53;
 		}
 	}
-	public static int getStaffNeeded(Client c) {
-		switch(c.MAGIC_SPELLS[c.spellId][0]) {
+
+
+	public static int getStaffNeeded( Client c )
+	{
+		switch( c.MAGIC_SPELLS[c.spellId][0] ) {
 			case 1539:
-			return 1409;
-			
+				return 1409;
+
 			case 12037:
-			return 4170;
-			
+				return 4170;
+
 			case 1190:
-			return 2415;
-			
+				return 2415;
+
 			case 1191:
-			return 2416;
-			
+				return 2416;
+
 			case 1192:
-			return 2417;
-			
+				return 2417;
+
 			default:
-			return 0;
+				return 0;
 		}
 	}
-	public static int getEndGfxHeight(Client c) {
-		switch(c.MAGIC_SPELLS[c.oldSpellId][0]) {
-			case 12987:	
-			case 12901:		
+
+
+	public static int getEndGfxHeight( Client c )
+	{
+		switch( c.MAGIC_SPELLS[c.oldSpellId][0] ) {
+			case 12987:
+			case 12901:
 			case 12861:
 			case 12445:
 			case 1192:
@@ -127,20 +143,23 @@ public class GetMagic {
 			case 13023:
 			case 12929:
 			case 12891:
-			return 0;
-			
+				return 0;
+
 			default:
-			return 100;
+				return 100;
 		}
 	}
-	public static int getStartGfxHeight(Client c) {
-		switch(c.MAGIC_SPELLS[c.spellId][0]) {
+
+
+	public static int getStartGfxHeight( Client c )
+	{
+		switch( c.MAGIC_SPELLS[c.spellId][0] ) {
 			case 12871:
 			case 12891:
-			return 0;
-			
+				return 0;
+
 			default:
-			return 100;
+				return 100;
 		}
 	}
 }

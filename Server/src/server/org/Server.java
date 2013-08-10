@@ -1,7 +1,13 @@
+
 package server.org;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.text.DecimalFormat;
 
+import org.apache.mina.common.IoAcceptor;
+import org.apache.mina.transport.socket.nio.SocketAcceptor;
+import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
 import server.org.core.connect.ConnectionHandler;
 import server.org.core.connect.ConnectionThrottleFilter;
@@ -35,25 +41,19 @@ import server.org.world.manager.ObjectManager;
 import server.org.world.manager.PlayerManager;
 import server.org.world.manager.StillGraphicsManager;
 
-import java.net.InetSocketAddress;
-import java.text.DecimalFormat;
-import org.apache.mina.common.IoAcceptor;
-import org.apache.mina.transport.socket.nio.SocketAcceptor;
-import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
-
 /**
  * Server.java
- *
+ * 
  * @author Sanity
  * @author Graham
  * @author Blake
  * @author Ryan Lmctruck30
  * @author Izumi
- *
  */
 
-public class Server {
-	
+public class Server
+{
+
 	public static PlayerManager playerManager = null;
 	private static StillGraphicsManager stillGraphicsManager = null;
 	public static NPCDrops npcDrops = new NPCDrops();
@@ -67,12 +67,12 @@ public class Server {
 	private static SimpleTimer engineTimer, debugTimer;
 	private static long cycleTime, cycles, totalCycleTime, sleepTime;
 	private static DecimalFormat debugPercentFormat;
-	public static boolean shutdownServer = false;		
-	public static boolean shutdownClientHandler;			
-	public static int serverlistenerPort; 
+	public static boolean shutdownServer = false;
+	public static boolean shutdownClientHandler;
+	public static int serverlistenerPort;
 	public static ItemHandler itemHandler = new ItemHandler();
 	public static PlayerHandler playerHandler = new PlayerHandler();
-    public static NPCHandler npcHandler = new NPCHandler();
+	public static NPCHandler npcHandler = new NPCHandler();
 	public static ShopHandler shopHandler = new ShopHandler();
 	public static ObjectHandler objectHandler = new ObjectHandler();
 	public static ObjectManager objectManager = new ObjectManager();
@@ -83,7 +83,7 @@ public class Server {
 	public static FightCaves fightCaves = new FightCaves();
 	public static lottery lottery = new lottery();
 	static {
-		if(!Config.SERVER_DEBUG) {
+		if( ! Config.SERVER_DEBUG ) {
 			serverlistenerPort = 43594;
 		} else {
 			serverlistenerPort = 43594;
@@ -93,36 +93,38 @@ public class Server {
 		engineTimer = new SimpleTimer();
 		debugTimer = new SimpleTimer();
 		sleepTime = 0;
-		debugPercentFormat = new DecimalFormat("0.0#%");
+		debugPercentFormat = new DecimalFormat( "0.0#%" );
 	}
-	
-	public static void main(java.lang.String args[]) throws NullPointerException, IOException {
+
+
+	public static void main( java.lang.String args[] ) throws NullPointerException, IOException
+	{
 		/**
 		 * Starting Up Server
 		 */
 		ObjectDef.loadConfig();
 		Region.load();
-		lottery.Process();
+		server.org.engine.character.content.lottery.Process();
 		WalkingCheck.load();
-		System.setOut(new Logger(System.out));
-		System.setErr(new Logger(System.err));
+		System.setOut( new Logger( System.out ) );
+		System.setErr( new Logger( System.err ) );
 		/**
 		 * Accepting Connections
 		 */
 		acceptor = new SocketAcceptor();
 		connectionHandler = new ConnectionHandler();
-		
+
 		playerManager = PlayerManager.getSingleton();
 		playerManager.setupRegionPlayers();
 		stillGraphicsManager = new StillGraphicsManager();
 		SocketAcceptorConfig sac = new SocketAcceptorConfig();
-		sac.getSessionConfig().setTcpNoDelay(false);
-		sac.setReuseAddress(true);
-		sac.setBacklog(100);
-		
-		throttleFilter = new ConnectionThrottleFilter(Config.CONNECTION_DELAY);
-		sac.getFilterChain().addFirst("throttleFilter", throttleFilter);
-		acceptor.bind(new InetSocketAddress(serverlistenerPort), connectionHandler, sac);
+		sac.getSessionConfig().setTcpNoDelay( false );
+		sac.setReuseAddress( true );
+		sac.setBacklog( 100 );
+
+		throttleFilter = new ConnectionThrottleFilter( Config.CONNECTION_DELAY );
+		sac.getFilterChain().addFirst( "throttleFilter", throttleFilter );
+		acceptor.bind( new InetSocketAddress( serverlistenerPort ), connectionHandler, sac );
 
 		/**
 		 * Initialise Handlers
@@ -132,24 +134,25 @@ public class Server {
 		DoubleDoors.getSingleton().load();
 		Connection.initialize();
 		HighscoresConfig.loadHighscores();
-		
+
 		/**
-		 * Server Successfully Loaded 
+		 * Server Successfully Loaded
 		 */
-		System.out.println("SAS Remake has been launched on localhost:" + serverlistenerPort + "...");
+		System.out.println( "SAS Remake has been launched on localhost:" + serverlistenerPort + "..." );
 		/**
 		 * Main Server Tick
 		 */
 		try {
-			while (!Server.shutdownServer) {
-				if (sleepTime >= 0)
-					Thread.sleep(sleepTime);
-				else
-					Thread.sleep(600);
+			while( ! Server.shutdownServer ) {
+				if( sleepTime >= 0 ) {
+					Thread.sleep( sleepTime );
+				} else {
+					Thread.sleep( 600 );
+				}
 				engineTimer.reset();
 				itemHandler.process();
-				playerHandler.process();	
-	            npcHandler.process();
+				playerHandler.process();
+				npcHandler.process();
 				shopHandler.process();
 				CycleEventHandler.getSingleton().process();
 				objectManager.process();
@@ -158,47 +161,57 @@ public class Server {
 				cycleTime = engineTimer.elapsed();
 				sleepTime = cycleRate - cycleTime;
 				totalCycleTime += cycleTime;
-				cycles++;
+				cycles ++ ;
 				debug();
-				if (System.currentTimeMillis() - lastMassSave > 3) {
-					for(Player p : PlayerHandler.players) {
-						if(p == null)
-							continue;						
-						PlayerSave.saveGame((Client)p);
+				if( System.currentTimeMillis() - lastMassSave > 3 ) {
+					for( Player p: PlayerHandler.players ) {
+						if( p == null ) {
+							continue;
+						}
+						PlayerSave.saveGame( ( Client )p );
 						lastMassSave = System.currentTimeMillis();
 					}
-				
+
 				}
 			}
-		} catch (Exception ex) {
+		} catch( Exception ex ) {
 			ex.printStackTrace();
-			System.out.println("A fatal exception has been thrown!");
-			for(Player p : PlayerHandler.players) {
-				if(p == null)
-					continue;						
-				PlayerSave.saveGame((Client)p);
+			System.out.println( "A fatal exception has been thrown!" );
+			for( Player p: PlayerHandler.players ) {
+				if( p == null ) {
+					continue;
+				}
+				PlayerSave.saveGame( ( Client )p );
 			}
 		}
 		acceptor = null;
 		connectionHandler = null;
 		sac = null;
-		System.exit(0);
+		System.exit( 0 );
 	}
-	
-	public static void processAllPackets() {
-		for (int j = 0; j < playerHandler.players.length; j++) {
-			if (playerHandler.players[j] != null) {
-				while(playerHandler.players[j].processQueuedPackets());			
-			}	
+
+
+	public static void processAllPackets()
+	{
+		for( Player player: PlayerHandler.players ) {
+			if( player != null ) {
+				while( player.processQueuedPackets() ) {
+					;
+				}
+			}
 		}
 	}
-	
+
 	public static boolean playerExecuted = false;
-	private static void debug() {
-		if (debugTimer.elapsed() > 360*1000 || playerExecuted) {
+
+
+	private static void debug()
+	{
+		if( debugTimer.elapsed() > 360 * 1000 || playerExecuted ) {
 			long averageCycleTime = totalCycleTime / cycles;
-			double engineLoad = ((double) averageCycleTime / (double) cycleRate);
-			System.out.println("Currently online: " + PlayerHandler.playerCount+ ", engine load: "+ debugPercentFormat.format(engineLoad));
+			double engineLoad = ( double )averageCycleTime / ( double )cycleRate;
+			System.out.println( "Currently online: " + PlayerHandler.playerCount + ", engine load: "
+					+ debugPercentFormat.format( engineLoad ) );
 			totalCycleTime = 0;
 			cycles = 0;
 			System.gc();
@@ -207,21 +220,29 @@ public class Server {
 			playerExecuted = false;
 		}
 	}
-	
-	public static long getSleepTimer() {
+
+
+	public static long getSleepTimer()
+	{
 		return sleepTime;
 	}
-	
-	public static StillGraphicsManager getStillGraphicsManager() {
+
+
+	public static StillGraphicsManager getStillGraphicsManager()
+	{
 		return stillGraphicsManager;
 	}
-	
-	public static PlayerManager getPlayerManager() {
+
+
+	public static PlayerManager getPlayerManager()
+	{
 		return playerManager;
 	}
-	
-	public static ObjectManager getObjectManager() {
+
+
+	public static ObjectManager getObjectManager()
+	{
 		return objectManager;
 	}
-	
+
 }

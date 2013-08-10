@@ -1,8 +1,10 @@
+
 package server.org.engine.character.combat.prayer;
 
 import server.org.engine.character.Client;
 
-public class PrayerHandler {
+public class PrayerHandler
+{
 
 	static double[] prayerData = {
 		0.5, // Thick Skin.
@@ -31,44 +33,52 @@ public class PrayerHandler {
 		2, // Smite
 		2, // Chivalry.
 		4, // Piety.
-    };
-	
-	public static void handlePrayerDrain(Client c) {
+	};
+
+
+	public static void handlePrayerDrain( Client c )
+	{
 		c.usingPrayer = false;
 		double toRemove = 0.0;
-		for(int i = 0; i < prayerData.length; i++) {
-			if(c.prayerActive[i]) { 
-				toRemove += prayerData[i]/10;
+		for( int i = 0; i < prayerData.length; i ++ ) {
+			if( c.prayerActive[i] ) {
+				toRemove += prayerData[i] / 10;
 				c.usingPrayer = true;
 			}
 		}
-		if (toRemove > 0) {
-			toRemove /= (1 + (0.035 * c.playerBonus[11]));		
+		if( toRemove > 0 ) {
+			toRemove /= 1 + 0.035 * c.playerBonus[11];
 		}
 		c.prayerPoint -= toRemove;
-		if (c.prayerPoint <= 0) {
+		if( c.prayerPoint <= 0 ) {
 			c.prayerPoint = 1.0 + c.prayerPoint;
-			reducePrayerLevel(c);
+			reducePrayerLevel( c );
 		}
 	}
-	public static void reducePrayerLevel(Client c) {
-		if(c.playerLevel[5] - 1 > 0) {
+
+
+	public static void reducePrayerLevel( Client c )
+	{
+		if( c.playerLevel[5] - 1 > 0 ) {
 			c.playerLevel[5] -= 1;
 		} else {
-			c.sendMessage("You have run out of prayer points!");
+			c.sendMessage( "You have run out of prayer points!" );
 			c.playerLevel[5] = 0;
-			resetPrayers(c);
-			c.prayerId = -1;	
+			resetPrayers( c );
+			c.prayerId = - 1;
 		}
-		c.getPA().refreshSkill(5);
+		c.getPA().refreshSkill( 5 );
 	}
-	public static void resetPrayers(Client c) {
-		for(int i = 0; i < c.prayerActive.length; i++) {
+
+
+	public static void resetPrayers( Client c )
+	{
+		for( int i = 0; i < c.prayerActive.length; i ++ ) {
 			c.prayerActive[i] = false;
-			c.getPA().sendFrame36(c.PRAYER_GLOW[i], 0);
+			c.getPA().sendFrame36( c.PRAYER_GLOW[i], 0 );
 		}
-		c.headIcon = -1;
+		c.headIcon = - 1;
 		c.getPA().requestUpdates();
 	}
-	
+
 }

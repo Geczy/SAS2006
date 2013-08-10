@@ -1,6 +1,5 @@
+
 package server.org.core.net;
-
-
 
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolDecoder;
@@ -11,34 +10,39 @@ import server.org.core.rs2.RS2ProtocolEncoder;
 
 /**
  * Provides access to the encoders and decoders for the 508 protocol.
+ * 
  * @author Graham
- *
  */
-public class CodecFactory implements ProtocolCodecFactory {
-	
+public class CodecFactory implements ProtocolCodecFactory
+{
+
 	/**
 	 * The encoder.
 	 */
-	private ProtocolEncoder encoder = new RS2ProtocolEncoder();
-	
+	private final ProtocolEncoder encoder = new RS2ProtocolEncoder();
+
 	/**
 	 * The decoder.
 	 */
-	private ProtocolDecoder decoder = new RS2LoginProtocolDecoder();
-	
+	private final ProtocolDecoder decoder = new RS2LoginProtocolDecoder();
+
+
 	@Override
 	/**
 	 * Get the encoder.
 	 */
-	public ProtocolEncoder getEncoder() throws Exception {
+	public ProtocolEncoder getEncoder() throws Exception
+	{
 		return encoder;
 	}
+
 
 	@Override
 	/**
 	 * Get the decoder.
 	 */
-	public ProtocolDecoder getDecoder() throws Exception {
+	public ProtocolDecoder getDecoder() throws Exception
+	{
 		return decoder;
 	}
 

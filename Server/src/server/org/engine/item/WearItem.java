@@ -1,41 +1,47 @@
+
 package server.org.engine.item;
 
 import server.org.engine.character.Client;
 import server.org.engine.character.packets.PacketType;
 
-
 /**
  * Wear Item
  **/
-public class WearItem implements PacketType {
+public class WearItem implements PacketType
+{
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket( Client c, int packetType, int packetSize )
+	{
 		c.wearId = c.getInStream().readUnsignedWord();
 		c.wearSlot = c.getInStream().readUnsignedWordA();
 		c.interfaceId = c.getInStream().readUnsignedWordA();
-		if(!c.getItems().playerHasItem(c.wearId, 1, c.wearSlot)) {
+		if( ! c.getItems().playerHasItem( c.wearId, 1, c.wearSlot ) ) {
 			return;
 		}
-		int oldCombatTimer = c.attackTimer;
-		if (c.playerIndex > 0 || c.npcIndex > 0)
+		if( c.playerIndex > 0 || c.npcIndex > 0 ) {
 			c.getCombat().resetPlayerAttack();
-		if (c.wearId >= 5509 && c.wearId <= 5515) {
-			int pouch = -1;
+		}
+		if( c.wearId >= 5509 && c.wearId <= 5515 ) {
+			int pouch = - 1;
 			int a = c.wearId;
-			if (a == 5509)
+			if( a == 5509 ) {
 				pouch = 0;
-			if (a == 5510)
+			}
+			if( a == 5510 ) {
 				pouch = 1;
-			if (a == 5512)
+			}
+			if( a == 5512 ) {
 				pouch = 2;
-			if (a == 5514)
+			}
+			if( a == 5514 ) {
 				pouch = 3;
-			c.getPA().emptyPouch(pouch);
+			}
+			c.getPA().emptyPouch( pouch );
 			return;
 		}
-			//c.attackTimer = oldCombatTimer;
-		c.getItems().wearItem(c.wearId, c.wearSlot);
+		// c.attackTimer = oldCombatTimer;
+		c.getItems().wearItem( c.wearId, c.wearSlot );
 	}
 
 }

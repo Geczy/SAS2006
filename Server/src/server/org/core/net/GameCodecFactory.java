@@ -1,7 +1,7 @@
+
 package server.org.core.net;
 
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
-
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 
@@ -9,41 +9,47 @@ import server.org.core.rs2.RS2ProtocolDecoder;
 import server.org.core.rs2.RS2ProtocolEncoder;
 import server.org.core.util.ISAACRandomGen;
 
-
 /**
  * Provides access to the encoders and decoders for the 508 protocol.
+ * 
  * @author Graham
- *
  */
-public class GameCodecFactory implements ProtocolCodecFactory {
-	
+public class GameCodecFactory implements ProtocolCodecFactory
+{
+
 	/**
 	 * The encoder.
 	 */
-	private ProtocolEncoder encoder = new RS2ProtocolEncoder();
-	
+	private final ProtocolEncoder encoder = new RS2ProtocolEncoder();
+
 	/**
 	 * The decoder.
 	 */
-	private ProtocolDecoder decoder;
-	
-	public GameCodecFactory(ISAACRandomGen inC) {
-		decoder = new RS2ProtocolDecoder(inC);
+	private final ProtocolDecoder decoder;
+
+
+	public GameCodecFactory( ISAACRandomGen inC )
+	{
+		decoder = new RS2ProtocolDecoder( inC );
 	}
+
 
 	@Override
 	/**
 	 * Get the encoder.
 	 */
-	public ProtocolEncoder getEncoder() throws Exception {
+	public ProtocolEncoder getEncoder() throws Exception
+	{
 		return encoder;
 	}
+
 
 	@Override
 	/**
 	 * Get the decoder.
 	 */
-	public ProtocolDecoder getDecoder() throws Exception {
+	public ProtocolDecoder getDecoder() throws Exception
+	{
 		return decoder;
 	}
 

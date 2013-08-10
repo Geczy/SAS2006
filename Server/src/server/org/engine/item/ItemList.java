@@ -1,6 +1,9 @@
+
 package server.org.engine.item;
 
-public class ItemList {
+public class ItemList
+{
+
 	public int itemId;
 	public String itemName;
 	public String itemDescription;
@@ -9,7 +12,9 @@ public class ItemList {
 	public double HighAlch;
 	public int[] Bonuses = new int[100];
 
-	public ItemList(int _itemId) {
+
+	public ItemList( int _itemId )
+	{
 		itemId = _itemId;
 	}
 }

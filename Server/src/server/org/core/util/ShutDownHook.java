@@ -1,21 +1,24 @@
+
 package server.org.core.util;
 
-import server.org.Server;
 import server.org.engine.character.Client;
-import server.org.engine.character.PlayerSave;
+import server.org.engine.character.Player;
+import server.org.engine.character.PlayerHandler;
 
-public class ShutDownHook extends Thread {
+public class ShutDownHook extends Thread
+{
 
 	@Override
-	public void run() {
-		System.out.println("Shutdown thread run.");
-		for (int j = 0; j < Server.playerHandler.players.length; j++) {
-			if (Server.playerHandler.players[j] != null) {
-				Client c = (Client)Server.playerHandler.players[j];
-				server.org.engine.character.PlayerSave.saveGame(c);			
-			}		
+	public void run()
+	{
+		System.out.println( "Shutdown thread run." );
+		for( Player player: PlayerHandler.players ) {
+			if( player != null ) {
+				Client c = ( Client )player;
+				server.org.engine.character.PlayerSave.saveGame( c );
+			}
 		}
-		System.out.println("Shutting down...");
+		System.out.println( "Shutting down..." );
 	}
 
 }

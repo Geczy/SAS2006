@@ -1,3 +1,4 @@
+
 package server.org.core.connect;
 
 import java.net.InetSocketAddress;
@@ -9,46 +10,53 @@ import org.apache.mina.common.IoSession;
 import server.org.Config;
 import server.org.world.Connection;
 
-public class HostList {
-	
+public class HostList
+{
+
 	private static HostList list = new HostList();
-	
-	public static HostList getHostList() {
+
+
+	public static HostList getHostList()
+	{
 		return list;
 	}
-	
-	private Map<String, Integer> connections = new HashMap<String, Integer>();
-	
-	public synchronized boolean add(IoSession session) {
-		String addr = ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress();
-		Integer amt = connections.get(addr);
-		if(amt == null) {
+
+	private final Map<String, Integer> connections = new HashMap<String, Integer>();
+
+
+	public synchronized boolean add( IoSession session )
+	{
+		String addr = ( ( InetSocketAddress )session.getRemoteAddress() ).getAddress().getHostAddress();
+		Integer amt = connections.get( addr );
+		if( amt == null ) {
 			amt = 1;
 		} else {
 			amt += 1;
 		}
-		if(amt > Config.IPS_ALLOWED || Connection.isIpBanned(addr)) {
+		if( amt > Config.IPS_ALLOWED || Connection.isIpBanned( addr ) ) {
 			return false;
 		} else {
-			connections.put(addr, amt);
+			connections.put( addr, amt );
 			return true;
 		}
 	}
-	
-	public synchronized void remove(IoSession session) {
-		if(session.getAttribute("inList") != Boolean.TRUE) {
+
+
+	public synchronized void remove( IoSession session )
+	{
+		if( session.getAttribute( "inList" ) != Boolean.TRUE ) {
 			return;
 		}
-		String addr = ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress();
-		Integer amt = connections.get(addr);
-		if(amt == null) {
+		String addr = ( ( InetSocketAddress )session.getRemoteAddress() ).getAddress().getHostAddress();
+		Integer amt = connections.get( addr );
+		if( amt == null ) {
 			return;
 		}
 		amt -= 1;
-		if(amt <= 0) {
-			connections.remove(addr);
+		if( amt <= 0 ) {
+			connections.remove( addr );
 		} else {
-			connections.put(addr, amt);
+			connections.put( addr, amt );
 		}
 	}
 

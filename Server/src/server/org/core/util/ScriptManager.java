@@ -1,3 +1,4 @@
+
 package server.org.core.util;
 
 import java.io.File;
@@ -12,103 +13,119 @@ import org.python.util.PythonInterpreter;
 
 import server.org.core.log.Logger;
 
-
-public class ScriptManager {
+public class ScriptManager
+{
 
 	public static PythonInterpreter python = new PythonInterpreter();
 	private static int scriptsLoaded = 0;
 
-	public static PyObject getVariable(String variable) {
+
+	public static PyObject getVariable( String variable )
+	{
 		try {
-			return ScriptManager.python.get(variable);
-		} catch (PyException e) {
+			return ScriptManager.python.get( variable );
+		} catch( PyException e ) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static Object callFunc(Class<?> c, String funcName, Object... binds) {
+
+	public static Object callFunc( Class< ? > c, String funcName, Object... binds )
+	{
 		try {
-			PyObject obj = ScriptManager.python.get(funcName);
-			if (obj != null && obj instanceof PyFunction) {
-				PyFunction func = (PyFunction) obj;
+			PyObject obj = ScriptManager.python.get( funcName );
+			if( obj != null && obj instanceof PyFunction ) {
+				PyFunction func = ( PyFunction )obj;
 				PyObject[] objects = new PyObject[binds.length];
-				for (int i = 0; i < binds.length; i++) {
+				for( int i = 0; i < binds.length; i ++ ) {
 					Object bind = binds[i];
-					objects[i] = Py.java2py(bind);
+					objects[i] = Py.java2py( bind );
 				}
-				return func.__call__(objects).__tojava__(c);
-			} else
+				return func.__call__( objects ).__tojava__( c );
+			} else {
 				return null;
-		} catch (PyException ex) {
+			}
+		} catch( PyException ex ) {
 			ex.printStackTrace();
 			return null;
 		}
 	}
 
-	public static boolean callFunc(String funcName, Object... binds) {
+
+	public static boolean callFunc( String funcName, Object... binds )
+	{
 		try {
-			PyObject obj = ScriptManager.python.get(funcName);
-			if (obj != null && obj instanceof PyFunction) {
-				PyFunction func = (PyFunction) obj;
+			PyObject obj = ScriptManager.python.get( funcName );
+			if( obj != null && obj instanceof PyFunction ) {
+				PyFunction func = ( PyFunction )obj;
 				PyObject[] objects = new PyObject[binds.length];
-				for (int i = 0; i < binds.length; i++) {
+				for( int i = 0; i < binds.length; i ++ ) {
 					Object bind = binds[i];
-					objects[i] = Py.java2py(bind);
+					objects[i] = Py.java2py( bind );
 				}
-				func.__call__(objects);
+				func.__call__( objects );
 				return true;
-			} else
+			} else {
 				return false;
-		} catch (PyException ex) {
+			}
+		} catch( PyException ex ) {
 			ex.printStackTrace();
 			return false;
 		}
 	}
 
-	public static void loadScripts() throws IOException {
-		System.out.println("Loading scripts...");
+
+	public static void loadScripts() throws IOException
+	{
+		System.out.println( "Loading scripts..." );
 		ScriptManager.python.cleanup();
-		File scriptDir = new File("./Data/scripts/");
-		if (scriptDir.isDirectory() && !scriptDir.getName().startsWith(".")) {
+		File scriptDir = new File( "./Data/scripts/" );
+		if( scriptDir.isDirectory() && ! scriptDir.getName().startsWith( "." ) ) {
 			File[] children = scriptDir.listFiles();
-			for (File child : children)
-				if (child.isFile()) {
-					if (child.getName().endsWith(".py")) {
-						System.out.println("\tLoading script: "
-								+ child.getPath());
+			for( File child: children ) {
+				if( child.isFile() ) {
+					if( child.getName().endsWith( ".py" ) ) {
+						System.out.println( "\tLoading script: "
+								+ child.getPath() );
 						ScriptManager.python
-								.execfile(new FileInputStream(child));
-						ScriptManager.scriptsLoaded++;
+								.execfile( new FileInputStream( child ) );
+						ScriptManager.scriptsLoaded ++ ;
 					}
-				} else
-					ScriptManager.recurse(child.getPath());
+				} else {
+					ScriptManager.recurse( child.getPath() );
+				}
+			}
 		}
-		System.out.println("Loaded " + ScriptManager.scriptsLoaded
-				+ " scripts!");
+		System.out.println( "Loaded " + ScriptManager.scriptsLoaded
+				+ " scripts!" );
 		ScriptManager.scriptsLoaded = 0;
 	}
 
-	private static void recurse(String dir) throws IOException {
-		File scriptDir = new File(dir);
-		if (scriptDir.isDirectory() && !scriptDir.getName().startsWith(".")) {
+
+	private static void recurse( String dir ) throws IOException
+	{
+		File scriptDir = new File( dir );
+		if( scriptDir.isDirectory() && ! scriptDir.getName().startsWith( "." ) ) {
 			File[] children = scriptDir.listFiles();
-			for (File child : children)
-				if (child.isFile()) {
-					if (child.getName().endsWith(".py")) {
-						System.out.println("\tLoading script: \r"
-								+ child.getPath());
+			for( File child: children ) {
+				if( child.isFile() ) {
+					if( child.getName().endsWith( ".py" ) ) {
+						System.out.println( "\tLoading script: \r"
+								+ child.getPath() );
 						ScriptManager.python
-								.execfile(new FileInputStream(child));
-						ScriptManager.scriptsLoaded++;
+								.execfile( new FileInputStream( child ) );
+						ScriptManager.scriptsLoaded ++ ;
 					}
-				} else
-					ScriptManager.recurse(child.getPath());
+				} else {
+					ScriptManager.recurse( child.getPath() );
+				}
+			}
 		}
 	}
 
 	static {
-		ScriptManager.python.setOut(new Logger(System.out));
-		ScriptManager.python.setErr(new Logger(System.err));
+		ScriptManager.python.setOut( new Logger( System.out ) );
+		ScriptManager.python.setErr( new Logger( System.err ) );
 	}
 }

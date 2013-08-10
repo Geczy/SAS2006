@@ -1,15 +1,19 @@
+
 package server.org.engine.item;
 
+public class GameItem
+{
 
-public class GameItem {
 	public int id, amount;
 	public boolean stackable = false;
 
-	public GameItem(int id, int amount) {
-		if (Item.itemStackable[id]) {
+
+	public GameItem( int id, int amount )
+	{
+		if( Item.itemStackable[id] ) {
 			stackable = true;
 		}
-	this.id = id;
-	this.amount = amount;
+		this.id = id;
+		this.amount = amount;
 	}
 }

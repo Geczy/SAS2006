@@ -1,3 +1,4 @@
+
 package server.org.engine.character.packets;
 
 import server.org.engine.character.Client;
@@ -6,10 +7,10 @@ import server.org.engine.character.Client;
  * Packet interface.
  * 
  * @author Graham
- * 
  */
-public interface Packet {
+public interface Packet
+{
 
-	public void handlePacket(Client client, int packetType, int packetSize);
+	public void handlePacket( Client client, int packetType, int packetSize );
 
 }

@@ -1,5 +1,5 @@
-package server.org.engine.character.packets;
 
+package server.org.engine.character.packets;
 
 import server.org.engine.character.Client;
 import server.org.engine.character.banking.Bank10;
@@ -37,13 +37,13 @@ import server.org.engine.item.PickupItem;
 import server.org.engine.item.RemoveItem;
 import server.org.engine.item.WearItem;
 
-
-public class PacketHandler{
+public class PacketHandler
+{
 
 	private static PacketType packetId[] = new PacketType[256];
-	
+
 	static {
-		
+
 		SilentPacket u = new SilentPacket();
 		packetId[3] = u;
 		packetId[218] = new Report();
@@ -78,8 +78,8 @@ public class PacketHandler{
 		packetId[155] = cn;
 		packetId[17] = cn;
 		packetId[21] = cn;
-		packetId[16] = new ClickItem2();		
-		packetId[75] = new ClickItem3();	
+		packetId[16] = new ClickItem2();
+		packetId[75] = new ClickItem3();
 		packetId[122] = new ClickItem();
 		packetId[241] = new ClickingInGame();
 		packetId[4] = new Chat();
@@ -128,23 +128,24 @@ public class PacketHandler{
 	}
 
 
-	public static void processPacket(Client c, int packetType, int packetSize) {	
-		if(packetType == -1) {
+	public static void processPacket( Client c, int packetType, int packetSize )
+	{
+		if( packetType == - 1 ) {
 			return;
 		}
 		PacketType p = packetId[packetType];
-		if(p != null) {
+		if( p != null ) {
 			try {
-				//System.out.println("packet: " + packetType);
-				p.processPacket(c, packetType, packetSize);
-			//c.sendMessage("Packet type: "+packetType+ " - size: "+packetSize);
-			} catch(Exception e) {
-					e.printStackTrace();
+				// System.out.println("packet: " + packetType);
+				p.processPacket( c, packetType, packetSize );
+				// c.sendMessage("Packet type: "+packetType+
+				// " - size: "+packetSize);
+			} catch( Exception e ) {
+				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Unhandled packet type: "+packetType+ " - size: "+packetSize);
+			System.out.println( "Unhandled packet type: " + packetType + " - size: " + packetSize );
 		}
 	}
-	
 
 }

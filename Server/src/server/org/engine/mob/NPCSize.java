@@ -1,5 +1,7 @@
+
 package server.org.engine.mob;
 
-public class NPCSize {
+public class NPCSize
+{
 
 }

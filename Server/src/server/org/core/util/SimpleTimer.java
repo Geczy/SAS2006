@@ -1,18 +1,26 @@
+
 package server.org.core.util;
 
-public class SimpleTimer {
+public class SimpleTimer
+{
 
 	private long cachedTime;
 
-	public SimpleTimer() {
+
+	public SimpleTimer()
+	{
 		reset();
 	}
 
-	public void reset() {
+
+	public void reset()
+	{
 		cachedTime = System.currentTimeMillis();
 	}
 
-	public long elapsed() {
+
+	public long elapsed()
+	{
 		return System.currentTimeMillis() - cachedTime;
 	}
 }
