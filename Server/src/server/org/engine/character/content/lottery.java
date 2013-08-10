@@ -169,9 +169,8 @@ public class lottery
 		for( Player player: PlayerHandler.players ) {
 			if( player != null ) {
 				Client all = ( Client )player;
-				all.sendMessage( "[@blu@Lottery@bla@] The Lottery Jackpot is currently at @blu@" + fund / 1000
-						+ "k@bla@. To Enter speak to Duke Horasio who" );
-				all.sendMessage( "can be located at Varrock Center." );
+				all.sendMessage( "[@blu@Lottery@bla@] The Lottery Jackpot is currently at @blu@" + fund / 1000 + "k@bla@." );
+				all.sendMessage( "To Enter speak to Duke Horasio who can be located at Varrock Center." );
 			}
 		}
 	}
